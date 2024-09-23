@@ -1,0 +1,653 @@
+{
+	"info": {
+		"_postman_id": "b1e0608b-3569-411d-8a92-b31bed794939",
+		"name": "API Automation",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "38487921"
+	},
+	"item": [
+		{
+			"name": "Testing Add Employee",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"//Assertion1: Verify the status code is 200\r",
+							"pm.test(\"Verify the status code is 200\", function()\r",
+							"{\r",
+							"    pm.response.to.have.status(200);\r",
+							"}\r",
+							");\r",
+							"\r",
+							"//Assertion2: Verify the status code is OK\r",
+							"pm.test(\"Verify the status Response is OK\", function()\r",
+							"{\r",
+							"    pm.response.to.have.status(\"OK\");\r",
+							"}\r",
+							");\r",
+							"\r",
+							"//Assertion3: Verify the response contains employee ID\r",
+							"pm.test(\"Response contains employee ID\", function () {\r",
+							"    var jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData).to.have.property('id');\r",
+							"});\r",
+							"\r",
+							"\r",
+							"//Save id\r",
+							"var response = pm.response.json();\r",
+							"pm.collectionVariables.set(\"idEmployee\", response.id);\r",
+							"\r",
+							"\r",
+							"\r",
+							"\r",
+							"\r",
+							"\r",
+							"\r",
+							"\r",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"\r",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					},
+					{
+						"key": "Authorization",
+						"value": "Basic {{AuthorizationCode}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"firstName\": \"Eduardo\",\r\n    \"lastName\": \"Hamue\",\r\n    \"dependants\": 2\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://wmxrwq14uc.execute-api.us-east-1.amazonaws.com/Prod/api/employees",
+					"protocol": "https",
+					"host": [
+						"wmxrwq14uc",
+						"execute-api",
+						"us-east-1",
+						"amazonaws",
+						"com"
+					],
+					"path": [
+						"Prod",
+						"api",
+						"employees"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Test Get Employee",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"//Assertion1: Verify the status code is 200\r",
+							"pm.test(\"Verify the status code is 200\", function()\r",
+							"{\r",
+							"    pm.response.to.have.status(200);\r",
+							"}\r",
+							");\r",
+							"\r",
+							"//Assertion2: Verify the status code is OK\r",
+							"pm.test(\"Verify the status Response is OK\", function()\r",
+							"{\r",
+							"    pm.response.to.have.status(\"OK\");\r",
+							"}\r",
+							");\r",
+							"\r",
+							"\r",
+							"\r",
+							"\r",
+							"\r",
+							"\r",
+							"\r",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"\r",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Basic {{AuthorizationCode}}",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "https://wmxrwq14uc.execute-api.us-east-1.amazonaws.com/Prod/api/employees/{{idEmployee}}",
+					"protocol": "https",
+					"host": [
+						"wmxrwq14uc",
+						"execute-api",
+						"us-east-1",
+						"amazonaws",
+						"com"
+					],
+					"path": [
+						"Prod",
+						"api",
+						"employees",
+						"{{idEmployee}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Test Update Employee",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"//Assertion1: Verify the status code is 200\r",
+							"pm.test(\"Verify the status code is 200\", function()\r",
+							"{\r",
+							"    pm.response.to.have.status(200);\r",
+							"}\r",
+							");\r",
+							"\r",
+							"//Assertion2: Verify the status code is OK\r",
+							"pm.test(\"Verify the status Response is OK\", function()\r",
+							"{\r",
+							"    pm.response.to.have.status(\"OK\");\r",
+							"}\r",
+							");\r",
+							"\r",
+							"//Assertion3: Verify the response contains employee ID\r",
+							"pm.test(\"Response contains employee ID\", function () {\r",
+							"    var jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData).to.have.property('id');\r",
+							"});\r",
+							"\r",
+							"\r",
+							"//Assertion4: Verify the response contains correct values\r",
+							"pm.test(\"Employee details are updated\", function () {\r",
+							"    var jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData.firstName).to.eql(\"Wanda\");\r",
+							"    pm.expect(jsonData.lastName).to.eql(\"Maximoff\");\r",
+							"});\r",
+							"\r",
+							"\r",
+							"\r",
+							"\r",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"\r",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					},
+					{
+						"key": "Authorization",
+						"value": "Basic {{AuthorizationCode}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"id\": \"{{idEmployee}}\",\r\n    \"firstName\": \"Wanda\",\r\n    \"lastName\": \"Maximoff\",\r\n    \"dependants\": 2\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://wmxrwq14uc.execute-api.us-east-1.amazonaws.com/Prod/api/employees",
+					"protocol": "https",
+					"host": [
+						"wmxrwq14uc",
+						"execute-api",
+						"us-east-1",
+						"amazonaws",
+						"com"
+					],
+					"path": [
+						"Prod",
+						"api",
+						"employees"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Test Get Employee List",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"//Assertion1: Verify the status code is 200\r",
+							"pm.test(\"Verify the status code is 200\", function()\r",
+							"{\r",
+							"    pm.response.to.have.status(200);\r",
+							"}\r",
+							");\r",
+							"\r",
+							"// Assertion2: Verify the status code is OK\r",
+							"pm.test(\"Verify the status Response is OK\", function()\r",
+							"{\r",
+							"    pm.response.to.have.status(\"OK\");\r",
+							"}\r",
+							");\r",
+							"\r",
+							"// Assertion3: Verify the response is an array\r",
+							"pm.test(\"Response is an array\", function () {\r",
+							"    var jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData).to.be.an('array');\r",
+							"});\r",
+							"\r",
+							"// Assertion4: Verify each client has required properties\r",
+							"pm.test(\"Each client has required properties\", function () {\r",
+							"    var jsonData = pm.response.json();\r",
+							"    jsonData.forEach(function (employee) {\r",
+							"        pm.expect(employee).to.have.property('id');\r",
+							"        pm.expect(employee).to.have.property('firstName');\r",
+							"        pm.expect(employee).to.have.property('lastName');\r",
+							"        pm.expect(employee).to.have.property('dependants');\r",
+							"    });\r",
+							"});\r",
+							"\r",
+							"\r",
+							"// Assertion5: Verify response time is less than 500ms\r",
+							"pm.test(\"Response time is less than 500ms\", function () {\r",
+							"    pm.expect(pm.response.responseTime).to.be.below(500);\r",
+							"});\r",
+							"\r",
+							"\r",
+							"\r",
+							"// Assertion6: Verify that one of the employees has the idEmployee\r",
+							"var employees = pm.response.json();\r",
+							"\r",
+							"//Seve the idEmployee collection variable into a local variable\r",
+							"var idEmployee = pm.collectionVariables.get(\"idEmployee\");\r",
+							"// var idEmployee = \"132\"\r",
+							"\r",
+							"//Verify if some employee has the idEmployee\r",
+							"var employeeFound = employees.some(function(employee) {\r",
+							"    return employee.id === idEmployee;\r",
+							"});\r",
+							"\r",
+							"//Print the result of the assertion\r",
+							"pm.test(\"Employed id \" + idEmployee + \" find it\", function () {\r",
+							"    pm.expect(employeeFound).to.be.true;\r",
+							"});\r",
+							"\r",
+							"\r",
+							"\r",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Basic {{AuthorizationCode}}",
+						"type": "text"
+					},
+					{
+						"key": "",
+						"value": "",
+						"type": "text",
+						"disabled": true
+					}
+				],
+				"url": {
+					"raw": "https://wmxrwq14uc.execute-api.us-east-1.amazonaws.com/Prod/api/employees",
+					"protocol": "https",
+					"host": [
+						"wmxrwq14uc",
+						"execute-api",
+						"us-east-1",
+						"amazonaws",
+						"com"
+					],
+					"path": [
+						"Prod",
+						"api",
+						"employees"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "Get Employee List",
+					"originalRequest": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Basic {{token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "https://wmxrwq14uc.execute-api.us-east-1.amazonaws.com/Prod/api/employees",
+							"protocol": "https",
+							"host": [
+								"wmxrwq14uc",
+								"execute-api",
+								"us-east-1",
+								"amazonaws",
+								"com"
+							],
+							"path": [
+								"Prod",
+								"api",
+								"employees"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "application/json; charset=utf-8"
+						},
+						{
+							"key": "Content-Length",
+							"value": "626"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						},
+						{
+							"key": "Date",
+							"value": "Mon, 03 Feb 2020 19:06:53 GMT"
+						},
+						{
+							"key": "x-amzn-RequestId",
+							"value": "e1b146c6-7a04-4a7b-96bd-380bb13d9a4e"
+						},
+						{
+							"key": "x-amz-apigw-id",
+							"value": "HVZUKE7XoAMF9zA="
+						},
+						{
+							"key": "X-Amzn-Trace-Id",
+							"value": "Root=1-5e386f4d-cac36a4413295f7df774bd58;Sampled=0"
+						},
+						{
+							"key": "X-Cache",
+							"value": "Miss from cloudfront"
+						},
+						{
+							"key": "Via",
+							"value": "1.1 7b891ba5ffaf08dd209adf67026190db.cloudfront.net (CloudFront)"
+						},
+						{
+							"key": "X-Amz-Cf-Pop",
+							"value": "ORD52-C1"
+						},
+						{
+							"key": "X-Amz-Cf-Id",
+							"value": "hSm_Jsqc_yaXsj2yELKp03K5oDWhSfeYrwgUh_hmlh0v1onUHQaqEQ=="
+						}
+					],
+					"cookie": [],
+					"body": "[\n    {\n        \"partitionKey\": \"TestUser1\",\n        \"sortKey\": \"15ab4884-e96c-4b4f-842c-6dd389033766\",\n        \"username\": \"TestUser1\",\n        \"id\": \"15ab4884-e96c-4b4f-842c-6dd389033766\",\n        \"firstName\": \"Steve\",\n        \"lastName\": \"Rogers\",\n        \"dependants\": 1,\n        \"expiration\": \"2020-02-23T17:41:07+00:00\",\n        \"salary\": 52000,\n        \"gross\": 2000,\n        \"benefitsCost\": 57.69231,\n        \"net\": 1942.30774\n    },\n    {\n        \"partitionKey\": \"TestUser1\",\n        \"sortKey\": \"ee4e35f4-bbe8-4905-afaa-48403c19c42e\",\n        \"username\": \"TestUser1\",\n        \"id\": \"ee4e35f4-bbe8-4905-afaa-48403c19c42e\",\n        \"firstName\": \"Tony\",\n        \"lastName\": \"Stark\",\n        \"dependants\": 2,\n        \"expiration\": \"2020-03-03T19:06:35+00:00\",\n        \"salary\": 52000,\n        \"gross\": 2000,\n        \"benefitsCost\": 76.92308,\n        \"net\": 1923.0769\n    }\n]"
+				}
+			]
+		},
+		{
+			"name": "Test Get Employee After Update",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"//Assertion1: Verify the status code is 200\r",
+							"pm.test(\"Verify the status code is 200\", function()\r",
+							"{\r",
+							"    pm.response.to.have.status(200);\r",
+							"}\r",
+							");\r",
+							"\r",
+							"//Assertion2: Verify the status code is OK\r",
+							"pm.test(\"Verify the status Response is OK\", function()\r",
+							"{\r",
+							"    pm.response.to.have.status(\"OK\");\r",
+							"}\r",
+							");\r",
+							"\r",
+							"\r",
+							"\r",
+							"\r",
+							"\r",
+							"\r",
+							"\r",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"\r",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Basic {{AuthorizationCode}}",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "https://wmxrwq14uc.execute-api.us-east-1.amazonaws.com/Prod/api/employees/{{idEmployee}}",
+					"protocol": "https",
+					"host": [
+						"wmxrwq14uc",
+						"execute-api",
+						"us-east-1",
+						"amazonaws",
+						"com"
+					],
+					"path": [
+						"Prod",
+						"api",
+						"employees",
+						"{{idEmployee}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Test Delete Employee",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"//Assertion1: Verify the status code is 200\r",
+							"pm.test(\"Verify the status code is 200\", function()\r",
+							"{\r",
+							"    pm.response.to.have.status(200);\r",
+							"}\r",
+							");\r",
+							"\r",
+							"//Assertion2: Verify the status code is OK\r",
+							"pm.test(\"Verify the status Response is OK\", function()\r",
+							"{\r",
+							"    pm.response.to.have.status(\"OK\");\r",
+							"}\r",
+							");\r",
+							"\r",
+							"\r",
+							"\r",
+							"\r",
+							"\r",
+							"\r",
+							"\r",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"\r",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Basic {{AuthorizationCode}}",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "https://wmxrwq14uc.execute-api.us-east-1.amazonaws.com/Prod/api/employees/{{idEmployee}}",
+					"protocol": "https",
+					"host": [
+						"wmxrwq14uc",
+						"execute-api",
+						"us-east-1",
+						"amazonaws",
+						"com"
+					],
+					"path": [
+						"Prod",
+						"api",
+						"employees",
+						"{{idEmployee}}"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "idEmployee",
+			"value": "0",
+			"type": "string"
+		},
+		{
+			"key": "AuthorizationCode",
+			"value": "VGVzdFVzZXI0NDc6LXJsVjtIK3VYMW5o",
+			"type": "string"
+		}
+	]
+}
